@@ -12,6 +12,7 @@ import domain.User;
 import domain.Zanr;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -120,6 +121,60 @@ public class Controller {
 
     public boolean login2(String ime, String password) {
         return dbb.login2(ime, password);
+    }
+
+    public List<Knjiga> filtriraj(String autor, String naslov) {
+        //preko memorije
+        List<Knjiga> rezultat=new ArrayList<>();
+        if(autor!=null&&naslov==null)
+        {
+            for(Knjiga k: listaKnjiga)
+            {
+                String autorKnjige=k.getAutor().getIme()+" "+k.getAutor().getPrezime();
+                if(autorKnjige.contains(autor))
+                {
+                    rezultat.add(k);
+                }
+            }
+        }
+        else if(autor!=null&&naslov!=null)
+        {
+            for(Knjiga k: listaKnjiga)
+            {
+                String autorKnjige=k.getAutor().getIme()+" "+k.getAutor().getPrezime();
+                if(autorKnjige.contains(autor)&&k.getNaslov().contains(naslov))
+                {
+                    rezultat.add(k);
+                }
+            }
+        }
+        else if(autor==null&&naslov!=null)
+        {
+            for(Knjiga k: listaKnjiga)
+            {
+                if(k.getNaslov().contains(autor))
+                {
+                    rezultat.add(k);
+                }
+            }
+        }
+        else
+        {
+            for(Knjiga k: listaKnjiga)
+            {
+                rezultat.add(k);
+            }
+        }
+        /*
+        List<Knjiga> rezultat2=new ArrayList<>();
+        rezultat2=listaKnjiga.stream().filter(k->(naslov!=null&&k.getNaslov().contains(naslov))&&(autor!=null&&(k.getAutor().getIme()+" "+k.getAutor().getPrezime()).contains(autor))).collect(Collectors.toList());
+        */
+        
+        return rezultat;
+    }
+
+    public List<Knjiga> filtriraj2(String autor, String naslov) {
+        return dbb.filtriraj(autor, naslov);
     }
     
     

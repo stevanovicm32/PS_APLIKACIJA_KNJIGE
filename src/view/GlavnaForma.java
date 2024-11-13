@@ -7,6 +7,7 @@ package view;
 import controller.Controller;
 import domain.Knjiga;
 import domain.Zanr;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -105,6 +106,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         CheckBoxNaucni.setText("naucni casopis");
 
         dugmeFiltriraj.setText("Filtriraj");
+        dugmeFiltriraj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dugmeFiltrirajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,13 +123,11 @@ public class GlavnaForma extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dugmeObrisi)
                                 .addGap(179, 179, 179)
                                 .addComponent(dugmeIzmeni)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dugmeDodaj)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                .addComponent(dugmeDodaj))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,6 +225,21 @@ public class GlavnaForma extends javax.swing.JFrame {
         FormaKnjiga fk=new FormaKnjiga(this, true, selektovanaKnjiga);
         fk.setVisible(true);
     }//GEN-LAST:event_dugmeIzmeniActionPerformed
+
+    private void dugmeFiltrirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dugmeFiltrirajActionPerformed
+        String autor=TextFieldAutor.getText();
+        String naslov=TextFieldNaziv.getText();
+        
+        //iz memorije
+        //List<Knjiga> filtriranaLista=controller.filtriraj(autor, naslov);
+        
+        //iz baze
+        List<Knjiga> filtriranaLista2=controller.filtriraj2(autor, naslov);
+        
+        ModelTabeleKnjige model=new ModelTabeleKnjige(filtriranaLista2);
+        tabelaKnjige.setModel(model);
+        
+    }//GEN-LAST:event_dugmeFiltrirajActionPerformed
 
     /**
      * @param args the command line arguments
