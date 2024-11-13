@@ -9,6 +9,7 @@ package domain;
  * @author Lenovo
  */
 public class Knjiga {
+    private int id;
     private String naslov;
     private Autor autor;
     private String ISBN;
@@ -18,6 +19,15 @@ public class Knjiga {
     public Knjiga() {
     }
 
+    public Knjiga(int id, String naslov, Autor autor, String ISBN, int godinaIzdanja, Zanr zanr) {
+        this.id=id;
+        this.naslov = naslov;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.godinaIzdanja = godinaIzdanja;
+        this.zanr = zanr;
+    }
+    
     public Knjiga(String naslov, Autor autor, String ISBN, int godinaIzdanja, Zanr zanr) {
         this.naslov = naslov;
         this.autor = autor;
@@ -64,6 +74,14 @@ public class Knjiga {
 
     public void setZanr(Zanr zanr) {
         this.zanr = zanr;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

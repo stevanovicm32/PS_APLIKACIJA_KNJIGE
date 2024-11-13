@@ -22,7 +22,8 @@ public class GlavnaForma extends javax.swing.JFrame {
     public GlavnaForma() {
         initComponents();
         controller = Controller.getInstance();
-        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(controller.getListaKnjiga());
+        ModelTabeleKnjige modelTabele= new ModelTabeleKnjige(controller.ucitajListuKnjiga());
+        //ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(controller.getListaKnjiga());
         tabelaKnjige.setModel(modelTabele);
     }
 
@@ -194,15 +195,16 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void dugmeObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dugmeObrisiActionPerformed
         int selektovaniRed= tabelaKnjige.getSelectedRow();
-        
         if(selektovaniRed==-1)
         {
             JOptionPane.showMessageDialog(this, "Morate selektovati knjigu da biste je obrisali!","Upozorenje", JOptionPane.WARNING_MESSAGE);
         }
         else
         {
+            ModelTabeleKnjige model=(ModelTabeleKnjige) tabelaKnjige.getModel();
+            int id=model.getListaKnjiga().get(selektovaniRed).getId();
             Controller controller=Controller.getInstance();
-            controller.obrisiKnjigu(selektovaniRed);
+            controller.obrisiKnjiguIzBaze(id);
         }
         
         osveziTabelu();
@@ -214,7 +216,8 @@ public class GlavnaForma extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "Morate odabrati knjigu!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
-        } Knjiga selektovanaKnjiga = (Knjiga) Controller.getInstance().getListaKnjiga().get(selektovaniRed);
+        } 
+        Knjiga selektovanaKnjiga = (Knjiga) controller.ucitajListuKnjiga().get(selektovaniRed);
         FormaKnjiga fk=new FormaKnjiga(this, true, selektovanaKnjiga);
         fk.setVisible(true);
     }//GEN-LAST:event_dugmeIzmeniActionPerformed
@@ -272,7 +275,11 @@ public class GlavnaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void osveziTabelu() {
-        ModelTabeleKnjige modelTabele=(ModelTabeleKnjige) tabelaKnjige.getModel();
-        modelTabele.osveziPodatke();
+        ModelTabeleKnjige modelTabele= new ModelTabeleKnjige(controller.ucitajListuKnjiga());
+        //ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(controller.getListaKnjiga());
+        tabelaKnjige.setModel(modelTabele);
+        
+        /*ModelTabeleKnjige modelTabele=(ModelTabeleKnjige) tabelaKnjige.getModel();
+        modelTabele.osveziPodatke();*/
     }
 }

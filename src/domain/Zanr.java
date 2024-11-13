@@ -9,5 +9,10 @@ package domain;
  * @author Lenovo
  */
 public enum Zanr {
-    ROMAN, POEZIJA, ISTORIJSKI, NAUCNAFANTASTIKA, DETEKTIVSKI;
+    ROMAN, POEZIJA, ISTORIJSKI, NAUCNAFANTASTIKA, DETEKTIVSKI,Fiction,
+Poetry,
+Children,
+Travel,
+Satire,
+Art;
 }

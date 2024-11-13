@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author Lenovo
  */
 public class Autor {
+    private int id;
     private String ime;
     private String prezime;
     private int godinaRodjenja;
@@ -46,11 +47,20 @@ public class Autor {
         return Objects.equals(this.prezime, other.prezime);
     }
     
-    public Autor(String ime, String prezime, int godinaRodjenja, String biografija) {
+    public Autor(int id, String ime, String prezime, int godinaRodjenja, String biografija) {
+        this.id=id;
         this.ime = ime;
         this.prezime = prezime;
         this.godinaRodjenja = godinaRodjenja;
         this.biografija = biografija;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIme() {

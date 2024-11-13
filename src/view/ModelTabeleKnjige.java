@@ -53,6 +53,15 @@ public class ModelTabeleKnjige extends AbstractTableModel {
     void osveziPodatke() {
         fireTableDataChanged();
     }
+
+    public List<Knjiga> getListaKnjiga() {
+        return listaKnjiga;
+    }
+
+    public void setListaKnjiga(List<Knjiga> listaKnjiga) {
+        this.listaKnjiga = listaKnjiga;
+    }
+
     
     
 }

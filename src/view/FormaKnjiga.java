@@ -216,7 +216,7 @@ private Knjiga knjigaZaIzmenu;
         Autor autor = (Autor) jComboBoxAutor.getSelectedItem();
         
         Knjiga novaKnjiga= new Knjiga(ime,autor,isbn,godina,zanr);
-        controller.dodajKnjigu(novaKnjiga);
+        controller.dodajKnjiguUBazu(novaKnjiga);
         JOptionPane.showMessageDialog(this, "Knjiga je dodata", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
         
         gf.osveziTabelu();
@@ -235,6 +235,8 @@ private Knjiga knjigaZaIzmenu;
         knjigaZaIzmenu.setGodinaIzdanja(godina);
         knjigaZaIzmenu.setISBN(isbn);
         knjigaZaIzmenu.setZanr(zanr);
+        
+        controller.azurirajKnjigu(knjigaZaIzmenu);
         
         JOptionPane.showMessageDialog(this, "Knjiga je izmenjena", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
         gf.osveziTabelu();
@@ -302,7 +304,7 @@ private Knjiga knjigaZaIzmenu;
     
     private void popuniComboBoxAutorima() {
         jComboBoxAutor.removeAllItems();
-        List<Autor> autori = Controller.getInstance().getListaAutora();
+        List<Autor> autori = Controller.getInstance().getListaAutoraIzBaze();
         for (Autor autor : autori) {
             jComboBoxAutor.addItem(autor);
         }
