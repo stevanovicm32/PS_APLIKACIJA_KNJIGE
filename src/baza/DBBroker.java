@@ -6,6 +6,7 @@ package baza;
 
 import domain.Autor;
 import domain.Knjiga;
+import domain.User;
 import domain.Zanr;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,5 +122,31 @@ public class DBBroker {
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean login2(String ime, String password) {
+        List<User> u=new ArrayList<>();
+        try {
+            String upit="SELECT * FROM USER";
+            Statement st=Konekcija.getInstance().getConnection().createStatement();
+            ResultSet rs=st.executeQuery(upit);
+            while(rs.next())
+            {
+                int id=rs.getInt("id");
+                String ime1=rs.getString("username");
+                String sifra=rs.getString("password");
+                User user=new User(id, ime1, sifra);
+                u.add(user);
+            }
+            for (User user : u) {
+                if(user.getIme().equalsIgnoreCase(ime)&&user.getSifra().equals(password))
+                {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Greska");
+        }
+        return false;
     }
 }

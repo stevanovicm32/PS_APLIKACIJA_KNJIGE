@@ -8,6 +8,7 @@ package controller;
 import baza.DBBroker;
 import domain.Autor;
 import domain.Knjiga;
+import domain.User;
 import domain.Zanr;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,15 @@ public class Controller {
     private DBBroker dbb;
     private List<Knjiga> listaKnjiga= new ArrayList<>();
     private List<Autor> listaAutora= new ArrayList<>();
+    private List<User> listaUsera=new ArrayList<>();
+
+    public List<User> getListaUsera() {
+        return listaUsera;
+    }
+
+    public void setListaUsera(List<User> listaUsera) {
+        this.listaUsera = listaUsera;
+    }
     
     private static Controller instance;
     public static Controller getInstance(){
@@ -34,6 +44,8 @@ public class Controller {
     {
         dbb=new DBBroker();
         
+        User m=new User(1, "Masa", "masa");
+        listaUsera.add(m);
         /*Autor a1=new Autor("Ivo", "Andric", 1892, "bla bla");
         Autor a2=new Autor("Danilo", "Kis", 1935, "bla bla");
         Autor a3=new Autor("Mesa", "Selimovic", 1910, "bla bla");
@@ -94,6 +106,20 @@ public class Controller {
 
     public void azurirajKnjigu(Knjiga knjigaZaIzmenu) {
         dbb.azurirajKnjigu(knjigaZaIzmenu);
+    }
+
+    public boolean login1(String ime, String password) {
+        for (User u : listaUsera) {
+            if(u.getIme().equalsIgnoreCase(ime)&&u.getSifra().equals(password))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean login2(String ime, String password) {
+        return dbb.login2(ime, password);
     }
     
     
